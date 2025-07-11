@@ -6,7 +6,7 @@
 /*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:21:11 by jperpct           #+#    #+#             */
-/*   Updated: 2025/07/11 12:04:25 by jperpct          ###   ########.fr       */
+/*   Updated: 2025/07/11 12:42:39 by jperpct          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Bureaucrat.hpp"
@@ -79,7 +79,7 @@ const char * Bureaucrat::GradeTooLowException::what(void) const throw()
 	return ("Grade too Low");
 };
 
-void Bureaucrat::signForm(Form &form)
+void Bureaucrat::signAForm(AForm &form)
 {
 	try
 	{
@@ -91,6 +91,19 @@ void Bureaucrat::signForm(Form &form)
 
 		std::cout << getName() <<" couldn’t sign " << form.get_name()  << "because not rank" << std::endl;
 	}
+}
+
+void Bureaucrat::executeForm(AForm &form)
+{
+	try
+	{
+		form.exexecute(*this);
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << getName() <<" not executed " << form.get_name() << std::endl;
+	}
+
 }
 
 std::ostream &operator << (std::ostream &o, Bureaucrat *copy)

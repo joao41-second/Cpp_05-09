@@ -2,7 +2,6 @@
 #ifndef FROM_HPP
 #define FROM_HPP
 
-#include "Bureaucrat.hpp"
 #include <cmath>
 #include <cstddef>
 #include <exception>
@@ -10,7 +9,7 @@
 #include <string>
 
 class Bureaucrat;
-class Form
+class AForm
 {
 	private:
 		const std::string _name;
@@ -20,10 +19,10 @@ class Form
 		bool error(size_t);
 
 	public:
-		Form(std::string name,size_t sign_it,size_t execute_it);
-		Form(const Form &copy);
-		~Form();
-		Form &operator=(const Form &copy);
+		AForm(std::string name,size_t sign_it,size_t execute_it);
+		AForm(const AForm &copy);
+		virtual ~AForm();
+		AForm &operator=(const AForm &copy);
 
 		std::string get_name();
 		bool get_signed();
@@ -31,6 +30,7 @@ class Form
 		size_t get_execute_it();
 
 		void beSigned(Bureaucrat &brucart); // print if form this signed or not signed
+		virtual void exexecute(Bureaucrat & executor) = 0;
 
 		class GradeTooLowException : public std::exception
 		{
@@ -45,6 +45,6 @@ class Form
 
 };
 
-std::ostream &operator <<(std::ostream &oi, Form &copy);
+std::ostream &operator <<(std::ostream &oi, AForm &copy);
 
 #endif
