@@ -2,37 +2,16 @@
 #include <exception>
 #include <iostream>
 #include <iterator>
+#include <ostream>
 #include "Bureaucrat.hpp"
 
 int main()
 {
  	Bureaucrat *ola = NULL;
+	Form        *minishel = NULL;
 	try{
 	  ola = new Bureaucrat("osvaldo",150);
-	  std::cout << ola << std::endl;
-	  ola->decrement();
-	  std::cout << ola << std::endl;
-	}
-	catch(const std::exception &e)
-	{
-		std::cout <<"error : " << e.what() << std::endl;
-	}
-	if(ola != NULL)
-		delete ola;
-	try{
-	  ola = new Bureaucrat("osvaldo",1);
-	  std::cout << ola << std::endl;
-	  ola->increment();
-	  std::cout << ola << std::endl;
-	}
-	catch(const std::exception &e)
-	{
-		std::cout <<"error : " << e.what() << std::endl;
-	}
-	if(ola != NULL)
-		delete ola;
-	try{
-	  ola = new Bureaucrat("osvaldo",35);
+	  minishel = new Form("mini",150,15);
 	  std::cout << ola << std::endl;
 	  ola->increment();
 	  std::cout << ola << std::endl;
@@ -42,7 +21,16 @@ int main()
 		std::cout <<"error : " << e.what() << std::endl;
 	}
 
+
+	ola->signForm(*minishel);
+
+	std::cout << "status form : name:" << minishel->get_name()  << " sign  ? "<< minishel->get_signed() << std::endl;
 	if(ola != NULL)
 		delete ola;
+	if(minishel != NULL)
+		delete minishel;
+
+
+	
 
 }

@@ -8,13 +8,15 @@
 #include <exception>
 #include <ostream>
 #include <string>
+
+class Bureaucrat;
 class Form
 {
 	private:
 		const std::string _name;
-		bool _signed;
-		const size_t _sign_it;
 		const size_t _execute_it;
+		const size_t _sign_it;
+		bool _signed;
 		bool error(size_t);
 
 	public:

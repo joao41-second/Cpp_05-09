@@ -6,24 +6,20 @@
 /*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:18:36 by jperpct           #+#    #+#             */
-/*   Updated: 2025/07/11 10:52:41 by jperpct          ###   ########.fr       */
+/*   Updated: 2025/07/11 12:11:25 by jperpct          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Form.hpp"
-#include <algorithm>
-#include <cstddef>
+#include "Bureaucrat.hpp"
 #include <iostream>
-#include <ostream>
-
 
 Form::Form(std::string name, size_t sign_it,  size_t execute_it):
-	_name(name),_execute_it(execute_it),_sign_it(sign_it)
+	_name(name), _execute_it(execute_it), _sign_it(sign_it)
 {	
 	std::cout << "start the form" << std::endl;
 	error(sign_it);
 	error(execute_it);
-	_signed = 0;
+	_signed = false;
 }
 
 Form::Form(const Form &copy):
@@ -39,7 +35,7 @@ Form::~Form()
 
 Form &Form::operator=(const Form &src)
 {
-	this->_signed = 1;
+	this->_signed = src._signed;
 	return *this;
 }
 
@@ -70,6 +66,16 @@ size_t Form::get_sing_it()
 bool Form::get_signed()
 {
 	return (_signed);
+}
+
+void Form::beSigned(Bureaucrat &brucat)
+{
+	if(brucat.getGrade() <= _sign_it)
+	{
+		_signed = true;
+	}
+	else 
+		throw Form::GradeTooLowException();
 }
 
 const char * Form::GradeTooHighException::what(void) const throw()
