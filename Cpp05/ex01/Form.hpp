@@ -15,7 +15,7 @@ class Form
 		bool _signed;
 		const size_t _sign_it;
 		const size_t _execute_it;
-		void error(size_t);
+		bool error(size_t);
 
 	public:
 		Form(std::string name,size_t sign_it,size_t execute_it);
@@ -33,16 +33,16 @@ class Form
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				virtual const char*wait() const throw();
+				virtual const char*what() const throw();
 		};
 		class GradeTooHighException
 		{
 			public:
-				virtual const char* wait()  const  throw();
+				virtual const char* what()  const  throw();
 		};
 
 };
 
-std::ostream operator <<(std::ostream &o, Form *str);
+std::ostream &operator <<(std::ostream &oi, Form &copy);
 
 #endif

@@ -18,7 +18,7 @@ SRC = main.cpp Bureaucrat.cpp
 SRCS = $(SRC:.cpp=.o)
 
 %.o:%.cpp
-	$(CC) $(FlAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 
 all:$(NAME)

@@ -32,6 +32,11 @@ Bureaucrat::~Bureaucrat()
 	std::cout << "end Bureaucrat" << std::endl;
 }
 
+Bureaucrat &Bureaucrat::operator=(Bureaucrat &copy)
+{
+	this->_grade = copy._grade;
+	return *this;
+}
 void Bureaucrat::setgrad(size_t grade)
 {
 
