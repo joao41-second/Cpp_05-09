@@ -10,50 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef FROM_CPP
-#define FROM_CPP
-
-#include <cmath>
-#include <cstddef>
-#include <exception>
+#include "Form.hpp"
+#include <algorithm>
+#include <iostream>
 #include <ostream>
-#include <string>
-class Form
+
+
+Form::Form(std::string name, size_t sign_it,  size_t execute_it):
+	_name(name),_execute_it(execute_it),_sign_it(sign_it)
+{	
+	std::cout << "start the form" << std::endl;
+	_signed = 0;
+}
+
+Form::Form(const Form &copy):
+	_name(copy._name),_execute_it(copy._execute_it),_sign_it(copy._sign_it)
 {
-	private:
-		const std::string _name;
-		bool _signed;
-		const size_t _sign_it;
-		const size_t _execute_it;
-		void error(size_t);
+	std::cout << "start the_copy form" << std::endl;
+	_signed = copy._sign_it;
+}
+Form::~Form()
+{
+	std::cout << "end the_copy form" << std::endl;
+}
 
-	public:
-		Form();
-		Form(const Form &copy);
-		~Form();
-		Form &operator=(const Form &copy);
+Form &Form::operator=(const Form &src)
+{
+	this->_signed = 1;
+	return *this;
+}
 
-		std::string get_name();
-		bool get_signed();
-		size_t get_sing_it();
-		size_t get_execute_it();
-		void signForm(); // if Bureaucrat to have rank sign the Form  
-		void beSigned(); // print if form this signed or not signed
+void error(size_t vaule)
+{
+}
 
-		class GradeTooLowException : public std::exception
-		{
-			public:
-				virtual const char*wait() const throw();
-		};
-		class GradeTooHighException
-		{
-			public:
-				virtual const char* wait()  const  throw();
-		};
 
-};
 
-std::ostream operator <<(std::ostream &o, Form *str);
-
-#endif
