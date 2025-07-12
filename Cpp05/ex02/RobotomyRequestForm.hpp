@@ -18,12 +18,15 @@ class AForm;
 class RobotomyRequestForm: public AForm
 {
 	private:
-		std::string _shrubbery;
+		std::string _target;
 	public:
 	  RobotomyRequestForm();
+	  RobotomyRequestForm(std::string name_file);
 	  RobotomyRequestForm(RobotomyRequestForm&copy);
 	  ~RobotomyRequestForm();
 	  RobotomyRequestForm & operator=(const RobotomyRequestForm &copy);
+
+	  void exexecute(Bureaucrat  & executor);
 
 	
 };

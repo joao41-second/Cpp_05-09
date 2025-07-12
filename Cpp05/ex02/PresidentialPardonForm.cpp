@@ -11,15 +11,25 @@
 /* ************************************************************************** */
 
 #include "PresidentialPardonForm.hpp"
+#include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include <iostream>
 #include <ostream>
 
-PresidentialPardonForm::PresidentialPardonForm(): AForm("file",145,137)
+PresidentialPardonForm::PresidentialPardonForm(): AForm("presidential",25,5)
 {
 	std::cout <<" start PresidentialPardonForm" << std::endl;
 	
-	_shrubbery = "std.txt";
+	_target = "std.txt";
+}
+
+PresidentialPardonForm::PresidentialPardonForm(std::string name_file): AForm("presidential",25,5)
+{
+	std::cout <<" start ShrubberyCreationForm" << std::endl;
+
+	srand(static_cast<unsigned int>(time(0)));
+	
+	_target = name_file;
 }
 
 PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &copy): 
@@ -27,7 +37,7 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &copy):
 {
 
 	std::cout <<" copy PresidentialPardonForm" << std::endl;
-	this->_shrubbery = copy._shrubbery;
+	this->_target = copy._target;
 }
 
 PresidentialPardonForm::~PresidentialPardonForm()
@@ -39,9 +49,20 @@ PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPard
 {
 	if(this == &copy)
 		return (*this);
-	_shrubbery = copy._shrubbery;
+	_target = copy._target;
 	return *this;
 }
 
 
-
+void PresidentialPardonForm::exexecute(Bureaucrat  & executor)
+{	
+	if(executor.getGrade() <= get_sing_it() && this->get_signed() == true)
+	{
+		std::cout << executor.getName() <<" executed " << get_name() << std::endl;
+		std::cout << _target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
+		
+	
+	}
+	else 
+		throw AForm::GradeTooLowException();
+}

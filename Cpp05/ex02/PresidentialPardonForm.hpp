@@ -18,12 +18,15 @@ class AForm;
 class PresidentialPardonForm: public AForm
 {
 	private:
-		std::string _shrubbery;
+		std::string _target;
 	public:
 	  PresidentialPardonForm();
+	  PresidentialPardonForm(std::string name_file);
 	  PresidentialPardonForm(PresidentialPardonForm&copy);
 	  ~PresidentialPardonForm();
 	  PresidentialPardonForm & operator=(const PresidentialPardonForm &copy);
+
+	  void exexecute(Bureaucrat  & executor);
 
 	
 };

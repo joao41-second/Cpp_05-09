@@ -11,14 +11,25 @@
 /* ************************************************************************** */
 #include "RobotomyRequestForm.hpp"
 #include "AForm.hpp"
+#include  "Bureaucrat.hpp"
+#include <cstdlib>
 #include <iostream>
 #include <ostream>
 
-RobotomyRequestForm::RobotomyRequestForm(): AForm("file",145,137)
+RobotomyRequestForm::RobotomyRequestForm(): AForm("robot",72,45)
 {
 	std::cout <<" start RobotomyRequestForm" << std::endl;
 	
-	_shrubbery = "std.txt";
+	srand(static_cast<unsigned int>(time(0)));
+	_target = "std";
+}
+RobotomyRequestForm::RobotomyRequestForm(std::string name_file): AForm("robot",72,45)
+{
+	std::cout <<" start ShrubberyCreationForm" << std::endl;
+
+	srand(static_cast<unsigned int>(time(0)));
+	
+	_target = name_file;
 }
 
 RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &copy): 
@@ -26,7 +37,7 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &copy):
 {
 
 	std::cout <<" copy RobotomyRequestForm" << std::endl;
-	this->_shrubbery = copy._shrubbery;
+	this->_target = copy._target;
 }
 
 RobotomyRequestForm::~RobotomyRequestForm()
@@ -38,9 +49,25 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm& c
 {
 	if(this == &copy)
 		return (*this);
-	_shrubbery = copy._shrubbery;
+	_target = copy._target;
 	return *this;
 }
 
 
-
+void RobotomyRequestForm::exexecute(Bureaucrat  & executor)
+{	
+	if(executor.getGrade() <= get_sing_it() && this->get_signed() == true)
+	{
+		std::cout << executor.getName() <<" executed " << get_name() << std::endl;
+		 int i = random();
+		if(i % 2 == 0)
+		{
+			std::cout  << "the " << _target << "has been robotomized" << std::endl;
+		}
+		else
+			std::cout  << "the " << _target << "has been not robotomized" << std::endl;
+	
+	}
+	else 
+		throw AForm::GradeTooLowException();
+}
