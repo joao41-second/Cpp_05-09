@@ -1,0 +1,222 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/13 09:15:51 by jperpct           #+#    #+#             */
+/*   Updated: 2025/07/13 11:01:04 by jperpct          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+#include "ScalarConverter.hpp"
+#include "colors.hpp"
+#include <algorithm>
+#include <cctype>
+#include <cfloat>
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <iterator>
+#include <limits.h>
+#include <ostream>
+#include <stdexcept>
+#include <stdint.h>
+#include <string>
+
+
+ScalarConverter::ScalarConverter()
+{
+	std::cout << "start the  Scalar Converter" << std::endl;
+}
+
+ScalarConverter::ScalarConverter(ScalarConverter & copy)
+{
+
+	std::cout << "start the Scalar Converter copy" << std::endl;
+	*this = copy;
+}
+
+ScalarConverter::~ScalarConverter()
+{
+
+	std::cout << "end the Scalar Converter" << std::endl;
+}
+
+ScalarConverter & ScalarConverter::operator=(ScalarConverter &copy)
+{
+	if(this == &copy)
+		return (*this);
+	return *this;
+}
+
+
+void ScalarConverter::convert(const std::string str)
+{
+
+	(void)str;
+	if(is_char(str) == false)
+	{
+	from_char(str);
+	}
+	else 
+	{	
+	from_char(str);
+	}
+
+	if(is_int(str) == false)
+	{
+		from_int(str);
+
+	}
+	else 
+		from_int(str);
+	if(is_float(str) == false)
+	{
+		std::cout << YELLOW <<"is_float" << RESET << std::endl;
+	}
+	else 
+		std::cout << YELLOW <<"float: "<< str << RESET << std::endl;
+	if(is_double(str) == false)
+	{
+		std::cout << MAGENTA <<"is_double" << RESET << std::endl;
+	}
+	else
+		std::cout << MAGENTA <<"double:"<< str << RESET << std::endl;
+
+}
+
+
+
+bool ScalarConverter::is_char(std::string str)
+{
+	if(str.size() == 1 && !std::isdigit(str[0]))
+		return true;
+	return false;
+}
+
+bool ScalarConverter::is_int(std::string str)
+{
+	int sig = 0;
+	if(str[0] == '+' ||str[0] == '-')
+		sig = 1;
+	for(int i = sig;i < (int)str.length();i++)	
+	{
+
+		if(!std::isdigit(str[i]))
+			return false;
+	}
+	try 
+	{
+		long long int convert = std::atoll(str.c_str());
+		if(convert > INT_MAX || convert < INT_MIN)
+			return false;
+	}
+	catch( std::invalid_argument &e)
+	{
+		return (false);
+	}
+	return true;
+}
+
+bool ScalarConverter::is_float(std::string str)
+{
+	(void)str;
+	int sig = 0;
+	if(str[0] == '+' ||str[0] == '-')
+		sig = 1;
+	if(str[str.length()-1] != 'f')
+		return false;
+	for(int i = sig;i < (int)str.length()-2;i++)	
+	{
+
+		if(!std::isdigit(str[i]) && str[i] != '.')
+			return false;
+	}
+	try 
+	{
+		str[str.length()-1] = '\0';
+		str.replace(str.length()-1,0,"");
+		float convert = std::atof(str.c_str());
+		if(convert > FLT_MAX || convert < -FLT_MAX)
+			return false;
+	}
+	catch( std::invalid_argument &e)
+	{
+		return (false);
+	}	
+	return true;
+}
+
+bool ScalarConverter::is_double(std::string str)
+{
+	(void)str;
+	int sig = 0;
+	if(str[0] == '+' ||str[0] == '-')
+		sig = 1;
+	for(int i = sig; i < (int)str.length();i++)	
+	{
+
+		if(!std::isdigit(str[i]) && str[i] != '.')
+			return false;
+		if( str[i] == '.')
+			sig = 2;
+	}
+	if(sig != 2) 
+		return false;
+	try 
+	{
+		float convert = std::atof(str.c_str());
+		if(convert > FLT_MAX || convert < -FLT_MAX)
+			return false;
+	}
+	catch( std::invalid_argument &e)
+	{
+		return (false);
+	}	
+	return true;
+}
+
+
+void ScalarConverter::from_char(std::string str)
+{
+	if(is_char(str) == true)
+	{
+
+		std::cout << GREEN << "char: "<< str << RESET << std::endl;
+		return;
+	}
+	int nb = std::atoll(str.c_str());
+	char c = nb;
+	
+	if(!std::isprint(static_cast<unsigned char>(c)) )
+	{
+
+		std::cout << GREEN << "char: "<< "not printable" << RESET << std::endl;
+	}
+	else 
+		std::cout << GREEN << "char: "<< c << RESET << std::endl;
+
+
+
+}
+
+void ScalarConverter::from_int(std::string str)
+{
+
+	if(is_int(str) == true)	
+	{
+		std::cout << RED <<"int: "<< str << RESET << std::endl;
+		return;
+	}
+
+	if(is_char(str) == true)
+	{
+		std::cout << RED <<"int: "<<  (int)static_cast<unsigned char>(str[0]) << RESET << std::endl;
+	}
+	int i = std::atol(str.c_str());	
+	std::cout << RED <<"int: "<<  i << RESET << std::endl;
+}
