@@ -25,7 +25,7 @@ int  main()
 	std::cout << "------" <<std::endl;
 	ScalarConverter::convert("+1");
 	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("-100000000000000000000000000");
+	ScalarConverter::convert("100000000000000000000000000");
 	std::cout << "------" <<std::endl;
 	ScalarConverter::convert("1.0");
 	std::cout << "------" <<std::endl;
@@ -33,7 +33,9 @@ int  main()
 	std::cout << "------" <<std::endl;
 	ScalarConverter::convert("-1.0f");
 	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("-1a.0f");
+	ScalarConverter::convert("-1.5f");
+	std::cout << "------" <<std::endl;
+	ScalarConverter::convert("-10a.0f");
 	std::cout << "------" <<std::endl;
 	ScalarConverter::convert("nan");
 	std::cout << "------" <<std::endl;

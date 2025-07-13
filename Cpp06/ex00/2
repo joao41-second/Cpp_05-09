@@ -58,19 +58,16 @@ void ScalarConverter::convert(const std::string str)
 {
 
 	(void)str;
-
-	if(is_char(str) == true || is_int(str) == true  || is_float(str) == true  || is_double(str) == true  )
-	{
 		from_char(str);
 		from_int(str);
 		from_float(str);
-		from_double(str);
+
+	if(is_double(str) == false)
+	{
+		std::cout << MAGENTA <<"is_double" << RESET << std::endl;
 	}
-	else {
-		std::cout << "not valid number" << std::endl;
-	}
-	
-	std::cout << is_float(str) << true <<std::endl;
+	else
+		std::cout << MAGENTA <<"double:"<< str << RESET << std::endl;
 
 }
 
@@ -78,7 +75,7 @@ void ScalarConverter::convert(const std::string str)
 
 bool ScalarConverter::is_char(std::string str)
 {
-	if(str.length() == 1 && !std::isdigit(str[0]))
+	if(str.size() == 1 && !std::isdigit(str[0]))
 		return true;
 	return false;
 }
@@ -111,10 +108,6 @@ bool ScalarConverter::is_float(std::string str)
 {
 	(void)str;
 	int sig = 0;
-	if(str == "nanf")
-	{	
-		return true;
-	}
 	if(str[0] == '+' ||str[0] == '-')
 		sig = 1;
 	if(str[str.length()-1] != 'f')
@@ -144,10 +137,6 @@ bool ScalarConverter::is_double(std::string str)
 {
 	(void)str;
 	int sig = 0;
-	if(str == "nan")
-	{	
-		return true;
-	}
 	if(str[0] == '+' ||str[0] == '-')
 		sig = 1;
 	for(int i = sig; i < (int)str.length();i++)	
@@ -162,8 +151,8 @@ bool ScalarConverter::is_double(std::string str)
 		return false;
 	try 
 	{
-		double convert = std::atof(str.c_str());
-		if(convert > DBL_MAX || convert < -DBL_MAX)
+		float convert = std::atof(str.c_str());
+		if(convert > FLT_MAX || convert < -FLT_MAX)
 			return false;
 	}
 	catch( std::invalid_argument &e)
@@ -184,17 +173,13 @@ void ScalarConverter::from_char(std::string str)
 	}
 	int nb = std::atoll(str.c_str());
 	char c = nb;
-	if(nb > 255)
-	{
-		std::cout << GREEN << "char: "<< "overflow" << RESET << std::endl;
-	}
 	
 	if(!std::isprint(static_cast<unsigned char>(c)) )
 	{
 
 		std::cout << GREEN << "char: "<< "not printable" << RESET << std::endl;
-		return;
 	}
+	else 
 		std::cout << GREEN << "char: "<< c << RESET << std::endl;
 
 
@@ -202,62 +187,31 @@ void ScalarConverter::from_char(std::string str)
 }
 
 void ScalarConverter::from_int(std::string str)
-{	
+{
+
+	if(is_int(str) == true)	
+	{
+		std::cout << RED <<"int: "<< str << RESET << std::endl;
+		return;
+	}
+
 	if(is_char(str) == true)
 	{
 		std::cout << RED <<"int: "<<  (int)static_cast<unsigned char>(str[0]) << RESET << std::endl;
 		return;
 	}
-	long long int i = std::atoll(str.c_str());	
-	if(i > INT_MAX || i < INT_MIN)
-	{
-		std::cout << RED <<"int: "<<  "overflow" << RESET << std::endl;
-		return;
-	}
+	int i = std::atol(str.c_str());	
 	std::cout << RED <<"int: "<<  i << RESET << std::endl;
 }
-
 void ScalarConverter::from_float(std::string str)
 {
 
-	
 	if(is_char(str) == true)
 	{
-		std::cout << YELLOW <<"float: "<<  (float)static_cast<unsigned char>(str[0]) << "f" << RESET << std::endl;
+		std::cout << YELLOW <<"float: "<<  (float)static_cast<unsigned char>(str[0]) << RESET << std::endl;
 		return;
 	}
 	float i = std::atof(str.c_str());
-	if(i > FLT_MAX || i < -FLT_MAX)
-	{
-		std::cout << RED <<"float: "<<  "overflow" << RESET << std::endl;
-		return;
-	}
-	std::cout << YELLOW <<"float: "<<  i << "f"<< RESET << std::endl;
-
-}
-
-void ScalarConverter::from_double(std::string str)
-{
-
-	std::string use = ".0" ;
-	
-	if(is_char(str) == true)
-	{
-
-		if( (int)static_cast<unsigned char>(str[0]) % 1 != 0)
-			use = "";
-		std::cout << YELLOW <<"double: "<<  (float)static_cast<unsigned char>(str[0]) << "f" << RESET << std::endl;
-		return;
-	}
-	double i = std::atof(str.c_str());
-
-	if( (int)static_cast<unsigned char>(str[0]) % 1 != 0)
-		use = "";
-	if(i > FLT_MAX || i < -FLT_MAX)
-	{
-		std::cout << RED <<"double: "<<  "overflow" << RESET << std::endl;
-		return;
-	}
-	std::cout << YELLOW <<"double: "<<  i << use << "f"<< RESET << std::endl;
+	std::cout << YELLOW <<"float: "<<  i << RESET << std::endl;
 
 }
