@@ -6,27 +6,29 @@
 /*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 17:29:02 by jperpct           #+#    #+#             */
-/*   Updated: 2025/07/20 18:06:43 by jperpct          ###   ########.fr       */
+/*   Updated: 2025/07/21 12:07:06 by jperpct          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include <iostream>
-#include <vector>
+#ifndef SPAN_HPP
+#define SPAN_HPP
 
-#ifndef SPAN
-#define SPAN
+#include <vector>
+#include <iostream>
 
 class Span
 {
+
 	private:
 		unsigned int _N;
 		std::vector<int> _nbs;
 	public:
 		Span(unsigned int N);
-		Span(Span &copy);
+		Span(Span const  &copy);
 		~Span();
-		Span& operator=(Span &copy);
+		Span& operator = (Span const  &copy);
+
  		void addNumber(int nb);
 		int shortestSpan();
 		int longestSpan();
