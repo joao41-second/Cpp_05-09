@@ -33,7 +33,7 @@ Bureaucrat::~Bureaucrat()
 }
 
 
-Bureaucrat &Bureaucrat::operator=(Bureaucrat &copy)
+Bureaucrat &Bureaucrat::operator=( const Bureaucrat &copy)
 {
 	this->_grade = copy._grade;
 	return *this;

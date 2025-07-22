@@ -20,7 +20,7 @@ class Bureaucrat
 		Bureaucrat(std::string name,size_t grade);
 		Bureaucrat(const Bureaucrat &copy);
 		~Bureaucrat();
-		Bureaucrat &operator=(Bureaucrat &copy);
+		Bureaucrat &operator=(const Bureaucrat &copy);
 		std::string 	getName() const ;
 		size_t		getGrade() const ;
 		void 		increment();

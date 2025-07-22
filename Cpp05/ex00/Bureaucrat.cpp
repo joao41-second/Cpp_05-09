@@ -32,7 +32,7 @@ Bureaucrat::~Bureaucrat()
 	std::cout << "end Bureaucrat" << std::endl;
 }
 
-Bureaucrat &Bureaucrat::operator=(Bureaucrat &copy)
+Bureaucrat &Bureaucrat::operator=(Bureaucrat const &copy)
 {
 	this->_grade = copy._grade;
 	return *this;
