@@ -25,9 +25,9 @@ class ScalarConverter
 		static  void convert(const std::string str);
 	private: 
 		ScalarConverter();
-		ScalarConverter(ScalarConverter& copy);
+		ScalarConverter(const ScalarConverter& copy);
 		~ScalarConverter();
-		ScalarConverter& operator =(ScalarConverter &copy);
+		ScalarConverter& operator =(const ScalarConverter &copy);
 
 	static	bool is_char(std::string str);
 	static	bool is_int(std::string str);	

@@ -33,7 +33,7 @@ ScalarConverter::ScalarConverter()
 	std::cout << "start the  Scalar Converter" << std::endl;
 }
 
-ScalarConverter::ScalarConverter(ScalarConverter & copy)
+ScalarConverter::ScalarConverter(const ScalarConverter & copy)
 {
 
 	std::cout << "start the Scalar Converter copy" << std::endl;
@@ -46,7 +46,7 @@ ScalarConverter::~ScalarConverter()
 	std::cout << "end the Scalar Converter" << std::endl;
 }
 
-ScalarConverter & ScalarConverter::operator=(ScalarConverter &copy)
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &copy)
 {
 	if(this == &copy)
 		return (*this);
@@ -66,11 +66,11 @@ void ScalarConverter::convert(const std::string str)
 		from_float(str);
 		from_double(str);
 	}
-	else {
+	else
+	{
 		std::cout << "not valid number" << std::endl;
 	}
 	
-	std::cout << is_float(str) << true <<std::endl;
 
 }
 
@@ -246,7 +246,7 @@ void ScalarConverter::from_double(std::string str)
 
 		if( (int)static_cast<unsigned char>(str[0]) % 1 != 0)
 			use = "";
-		std::cout << YELLOW <<"double: "<<  (float)static_cast<unsigned char>(str[0]) << "f" << RESET << std::endl;
+		std::cout << YELLOW <<"double: "<<  (float)static_cast<unsigned char>(str[0]) << RESET << std::endl;
 		return;
 	}
 	double i = std::atof(str.c_str());
@@ -258,6 +258,6 @@ void ScalarConverter::from_double(std::string str)
 		std::cout << RED <<"double: "<<  "overflow" << RESET << std::endl;
 		return;
 	}
-	std::cout << YELLOW <<"double: "<<  i << use << "f"<< RESET << std::endl;
+	std::cout << YELLOW <<"double: "<<  i << use << RESET << std::endl;
 
 }

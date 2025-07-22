@@ -13,32 +13,9 @@
 #include "ScalarConverter.hpp"
 #include <iterator>
 
-int  main()
-{
-	
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("o");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("A");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("97");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("+1");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("100000000000000000000000000");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("1.0");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("-1.0");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("-1.0f");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("-1.5f");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("-10a.0f");
-	std::cout << "------" <<std::endl;
-	ScalarConverter::convert("nan");
-	std::cout << "------" <<std::endl;
-
-
+int  main(int argc,char **argv)
+{	
+	(void)argc;
+	if(argc > 1)
+		ScalarConverter::convert(argv[1]);
 }
