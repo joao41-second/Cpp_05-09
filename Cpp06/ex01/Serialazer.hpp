@@ -23,14 +23,13 @@
 class Serialazer
 {
 	public:
-
 		static uintptr_t serialaze(Data *data);
 		static Data* deserialize(uintptr_t raw);
 	private: 
 		Serialazer();
-		Serialazer(Serialazer& copy);
+		Serialazer(Serialazer const & copy);
 		~Serialazer();
-		Serialazer& operator =(Serialazer &copy);
+		Serialazer& operator =(Serialazer const &copy);
 
 };
 

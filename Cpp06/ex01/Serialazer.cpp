@@ -20,7 +20,7 @@ Serialazer::Serialazer()
 	std::cout << "start the  Scalar Converter" << std::endl;
 }
 
-Serialazer::Serialazer(Serialazer & copy)
+Serialazer::Serialazer(Serialazer const & copy)
 {
 
 	std::cout << "start the Scalar Converter copy" << std::endl;
@@ -33,7 +33,7 @@ Serialazer::~Serialazer()
 	std::cout << "end the Scalar Converter" << std::endl;
 }
 
-Serialazer & Serialazer::operator=(Serialazer &copy)
+Serialazer & Serialazer::operator=(Serialazer const &copy)
 {
 	if(this == &copy)
 		return (*this);

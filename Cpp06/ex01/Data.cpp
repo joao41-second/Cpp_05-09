@@ -18,7 +18,7 @@ Data::Data(std::string name): _name(name)
 	std::cout << "start the  Scalar Converter" << std::endl;
 }
 
-Data::Data(Data & copy)
+Data::Data(Data const & copy)
 {
 
 	std::cout << "start the Scalar Converter copy" << std::endl;
@@ -32,7 +32,7 @@ Data::~Data()
 	std::cout << "end the Scalar Converter" << std::endl;
 }
 
-Data & Data::operator=(Data &copy)
+Data & Data::operator=(Data const  &copy)
 {
 	if(this == &copy)
 		return (*this);

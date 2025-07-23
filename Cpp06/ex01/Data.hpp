@@ -22,9 +22,9 @@ class Data
 		std::string _name;
 	public:
 		Data(std::string name);
-		Data(Data& copy);
+		Data(Data const& copy);
 		~Data();
-		Data& operator =(Data &copy);
+		Data& operator =(Data const &copy);
 		std::string get_name();
 	
 
