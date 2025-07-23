@@ -6,7 +6,7 @@
 /*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 10:59:40 by jperpct           #+#    #+#             */
-/*   Updated: 2025/07/23 11:34:11 by jperpct          ###   ########.fr       */
+/*   Updated: 2025/07/23 11:58:55 by jperpct          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,30 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include "colors.hpp"
+#include <limits.h>
+#include <cstdlib>
+#include <fstream>
+#include <ios>
+#include <ostream>
+#include <string>
+
 
 class BitcoinExchange
 {
 	private:
 		std::map<std::string,float> _db;
-		std::map<std::string,float> _file_db;
-		void set_db_and_file_db(std::string db,std::string file_db);
-		void add_db_and_file_db(std::string db,std::string file_db);
+		void add_db(std::string line);
+		bool chek_data(std::string line);
+		void Exchange(std::string line);
+		
 		
 	public:
-		BitcoinExchange(std::string db,std::string file_db);
+		BitcoinExchange(std::string db);
 		BitcoinExchange(const BitcoinExchange &copy);
 		~BitcoinExchange();
 		BitcoinExchange & operator=(const BitcoinExchange & bit);
-		void exec_file();
+		void exec_file(std::string file);
 		
 		class Error_db : public std::exception
 		{

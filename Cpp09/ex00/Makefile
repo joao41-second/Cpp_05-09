@@ -6,14 +6,14 @@
 #    By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 10:56:28 by jperpct           #+#    #+#              #
-#    Updated: 2025/07/10 11:10:36 by jperpct          ###   ########.fr        #
+#    Updated: 2025/07/23 12:16:13 by jperpct          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = bureaucrat 
+NAME = btcd
 CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = main.cpp Bureaucrat.cpp
+SRC = main.cpp  BitcoinExchange.cpp
 
 SRCS = $(SRC:.cpp=.o)
 
