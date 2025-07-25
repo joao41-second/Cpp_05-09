@@ -6,7 +6,7 @@
 /*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 08:40:17 by jperpct           #+#    #+#             */
-/*   Updated: 2025/07/25 08:52:41 by jperpct          ###   ########.fr       */
+/*   Updated: 2025/07/25 09:06:21 by jperpct          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 #include <exception>
 #include <vector>
 #include <iostream>
+#include <cstdlib>
+#include <limits.h>
+#include <algorithm>
+
 class PmergeMe
 {
 	private:
