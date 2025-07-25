@@ -152,6 +152,11 @@ BitcoinExchange::BitcoinExchange(std::string db)
 	std::cout << "start btc" << std::endl;
 }
 
+BitcoinExchange::BitcoinExchange(BitcoinExchange const &copy):_db(copy._db)
+{
+	std::cout << "copy BitcoinExchange" << std::endl;
+}
+
 BitcoinExchange::~BitcoinExchange()
 {
 	std::cout << "end btc" << std::endl;
@@ -161,3 +166,11 @@ const char* BitcoinExchange::Error_db::what() const  throw()
 {
 	return ("error : the database or input file is not standard format");
 }
+
+BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &copy)
+{
+	if(this == &copy)
+		return *this;
+	this->_db = copy._db;
+	return *this;
+} 
