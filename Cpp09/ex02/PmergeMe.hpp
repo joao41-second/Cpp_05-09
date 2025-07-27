@@ -27,6 +27,8 @@ class PmergeMe
 		std::vector<int> _start;
 		std::vector<int> _end;
 		double time;
+		void organize_split(std::vector<int *> _s1);
+		
 	public:
 		PmergeMe(char **argv, int argc);
 		PmergeMe(PmergeMe const &copy);

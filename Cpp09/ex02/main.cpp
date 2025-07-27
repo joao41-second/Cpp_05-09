@@ -19,6 +19,7 @@ int main(int argc, char **argv)
 	try
 	{
 		PmergeMe ok(argv,argc);
+		ok.organize();
 	}
 	catch(  std::exception &e)
 	{
