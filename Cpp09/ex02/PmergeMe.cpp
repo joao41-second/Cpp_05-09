@@ -25,6 +25,8 @@ void PmergeMe::organize_split(std::vector<int *> _s1 )
 
 	 std::vector<int *> s1;
 	 std::vector<int *> s2;
+	 std::vector<int> s1_copy;
+	 std::vector<int> s2_copy;
 	 int temp;
 	 if(_s1.size() <= 2)
 	 {
@@ -53,7 +55,59 @@ void PmergeMe::organize_split(std::vector<int *> _s1 )
 	organize_split(s1);
 	
 	organize_split(s2);
+
+	for (int i = 0; i < (int) s1.size() ; i++) 
+	 {
+
+		s1_copy.push_back(*s1[i]);
+	 }
+	for (int i = 0; i < (int) s2.size() ; i++) 
+	 {
+		s2_copy.push_back(*s2[i]);
+	 }
 	
+	
+	int l1 = 0;
+	int l2 = 0;
+	
+	for(int i = 0; i < (int)_s1.size(); i++)
+	{	
+	
+		if(l1 >= (int)s1_copy.size() && l2 >=(int) s2_copy.size())
+			break;
+
+		if( l1 == (int)s1_copy.size() && l2 < (int)s2_copy.size())
+		{
+			*_s1[i] = s2_copy[l2];
+			l2++;
+			continue;
+		}
+		if( l2 == (int)s2_copy.size() && l1 < (int)s1_copy.size())
+		{
+			*_s1[i] = s1_copy[l1];
+
+			l1++;
+			continue;
+		}
+
+
+		if(s1_copy[l1] < s2_copy[l2])
+		{
+			*_s1[i] = s1_copy[l1];
+			std::cout << " set is" << *_s1[i] << std::endl;
+			l1++;
+		}
+		else
+		{
+
+			*_s1[i] = s2_copy[l2];
+			std::cout << " set is" << *_s1[i] << std::endl;
+			l2++;
+		}
+	
+	}
+
+
 	std::cout << " "<< std::endl; 
 
 	for (int i = 0; i < (int) s1.size() ; i++) 
@@ -68,8 +122,8 @@ void PmergeMe::organize_split(std::vector<int *> _s1 )
 		 std::cout << *s2[i] << std::endl; 
 
 	 }
-	std::cout << " "<< std::endl; 
 
+	std::cout << " "<< std::endl; 
 
 	
 	
@@ -100,6 +154,14 @@ void PmergeMe::organize()
 
 	 }
 	organize_split(s1);
+
+	std::cout << "lsit end" << std::endl;
+	for (int i = 0; i < (int) s1.size() ; i++) 
+	 {
+		 std::cout << *s1[i] << std::endl; 
+
+	 }
+
 
 	//organize_split(s2);
 }
