@@ -28,6 +28,7 @@ class PmergeMe
 		std::vector<int> _end;
 		double time;
 		void organize_split(std::vector<int *> _s1);
+		void organize_2_list(std::vector<int *> s1 , std::vector<int *>s2, std::vector<int *> _s1);
 		
 	public:
 		PmergeMe(char **argv, int argc);
