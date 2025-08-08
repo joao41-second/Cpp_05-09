@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = bureaucrat 
+NAME = temp_2
 CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = main.cpp 

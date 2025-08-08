@@ -52,7 +52,7 @@ template< typename T> class Array
 		delete [] _array;
 	}
 
-	Array & operator=(Array &array)	
+	Array & operator=(const Array &array)	
 	{
 		if(this == &array)
 			return *this;
@@ -72,16 +72,13 @@ template< typename T> class Array
 	{
 		return _size;
 	}
-	T & operator[](unsigned int index)
+	T & operator[](unsigned int index) const 
 	{
 		if(index >= _size)
 			throw std::exception();
 
 		return  _array[index];
 	}
-
-
-
 };
 
 
