@@ -6,7 +6,7 @@
 /*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 17:51:59 by jperpct           #+#    #+#             */
-/*   Updated: 2025/07/20 18:11:15 by jperpct          ###   ########.fr       */
+/*   Updated: 2025/08/13 14:14:13 by jperpct          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ void Span::addNumber(int nb)
 int Span::shortestSpan()
 {
 	int max = 0;
-	for(int i = 0;i <= (int)_N;i++)	
+	for(int i = 0;i < (int)_nbs.size();i++)	
 	{
-		if(_nbs[i] != *_nbs.end())
+		if(i == 0){}
+		else 
 		{
 			if(max == 0 || max < _nbs[i] -_nbs[i-1])
 			{
@@ -85,8 +86,6 @@ int Span::shortestSpan()
 				max =  _nbs[i] -_nbs[i-1];
 			}
 		}
-		else
-			break;
 	}
 	
 	return max;
@@ -95,9 +94,10 @@ int Span::shortestSpan()
 int Span::longestSpan()
 {
 	int min = 0;
-	for(int i = 0;i <= (int)_N;i++)	
+	for(int i = 0;i < (int)_nbs.size();i++)	
 	{
-		if(_nbs[i] != *_nbs.end())
+		if(i == 0){}
+		else 
 		{
 			if(min == 0 ||( min > _nbs[i] -_nbs[i-1] && _nbs[i] -_nbs[i-1] > 0 ))
 			{
@@ -108,8 +108,6 @@ int Span::longestSpan()
 				min =  _nbs[i] -_nbs[i-1];
 			}
 		}
-		else
-			break;
 	}
 	
 	return min;

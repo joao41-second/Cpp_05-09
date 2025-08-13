@@ -6,11 +6,11 @@
 #    By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 10:56:28 by jperpct           #+#    #+#              #
-#    Updated: 2025/07/21 12:07:16 by jperpct          ###   ########.fr        #
+#    Updated: 2025/08/13 13:35:41 by jperpct          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = easyfind
+NAME = span
 CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = main.cpp Span.cpp
