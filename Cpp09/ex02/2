@@ -13,7 +13,6 @@
 
 
 #include "PmergeMe.hpp"
-#include <algorithm>
 #include <bits/types/__sigset_t.h>
 #include <iostream>
 #include <iterator>
@@ -53,35 +52,42 @@ std::vector<int> PmergeMe::binery_sryche(std::vector<int> list, int nb)
 			list.push_back(nb);
 			list.push_back(temp);
 		}	
-		return (list);
+			return (list);
 	}
 	l2.assign(list.begin()+list.size() /2,list.end());	
 	l1.assign(list.begin(), list.begin()+list.size() /2);
 
-		if(list[list.size() / 2] > nb )
-			l1 = binery_sryche(l1, nb);
-		else
-			l2 = binery_sryche(l2, nb);	
+	if(list.size() > 2 )
+	{
+//		if(list[list.size() / 2] > nb )
+//		binery_sryche(l1, nb);
+//		else
+	//	binery_sryche(l2, nb);
+	}else {
+			
+	}
+
+	list.clear();
 	list.assign(l1.begin(),l1.end());
-	list.insert(list.end(),l2.begin(),l2.end());
+	list.assign(l2.begin(),l2.end());
 	return list;
 }
 
 void PmergeMe::organize()
 {
 	
-	organize(_end);
+
+	std::cout << binery_sryche(_end, 15) << std::endl;
+	//organize(_end);
 }
 
 std::vector<int> PmergeMe::organize(std::vector<int> list)
 {
 	int odd;
-	int odd_c = -1;
 	std::vector<int> large;
 	std::vector<int> smale;	
 	if(list.size() % 2 != 0)
 	{
-		odd_c = 1;
 		odd = list.back();
 		list.pop_back();
 	}
@@ -96,21 +102,19 @@ std::vector<int> PmergeMe::organize(std::vector<int> list)
 		smale.push_back(list[i]);
 		large.push_back(list[i+1]);
 	}	
-	if(smale.size() > 1)
-		smale = organize(smale);
-	if(odd_c == 1)
-		smale = binery_sryche(smale, odd);
 
-	for (int i = 0 ; (int)large.size() > i; i++)
+	if(smale.size() > 1)
 	{
-		smale = binery_sryche(smale, large[i]);
+		smale = organize(smale);
 	}
 	
-	std::cout << "large :"<< large << std::endl;
+
+
 	std::cout << "smale :"<< smale << std::endl;
+	std::cout << "large :"<< large << std::endl;
 
 
-	return(smale);	
+	return(list);	
 }
 
 PmergeMe::PmergeMe(char **argc,int argv)

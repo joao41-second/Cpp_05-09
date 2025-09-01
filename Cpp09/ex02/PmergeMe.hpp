@@ -24,11 +24,13 @@
 class PmergeMe
 {
 	private:
+
+    		std::vector<int> _fib;
 		std::vector<int> _start;
 		std::vector<int> _end;
-		double time;
-		void organize_split(std::vector<int *> _s1);
-		void organize_2_list(std::vector<int *> s1 , std::vector<int *>s2, std::vector<int *> _s1);
+		//double time;
+		std::vector<int> organize(std::vector<int> list);
+		std::vector<int> binery_sryche(std::vector<int> list, int nb);
 		
 	public:
 		PmergeMe(char **argv, int argc);
@@ -42,5 +44,8 @@ class PmergeMe
 			virtual const char * what() const throw();
 		};
 };
+
+
+std::ostream& operator<<(std::ostream& os, const std::vector<int> & list);
 
 #endif
