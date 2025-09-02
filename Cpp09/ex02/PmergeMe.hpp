@@ -6,7 +6,7 @@
 /*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 08:40:17 by jperpct           #+#    #+#             */
-/*   Updated: 2025/07/25 09:06:21 by jperpct          ###   ########.fr       */
+/*   Updated: 2025/09/02 09:29:10 by jperpct          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class PmergeMe
 		//double time;
 		std::vector<int> organize(std::vector<int> list);
 		std::vector<int> binery_sryche(std::vector<int> list, int nb);
+		int Jacobsthal_number(int);
 		
 	public:
 		PmergeMe(char **argv, int argc);
@@ -47,5 +48,6 @@ class PmergeMe
 
 
 std::ostream& operator<<(std::ostream& os, const std::vector<int> & list);
+
 
 #endif

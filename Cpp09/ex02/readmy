@@ -1,0 +1,8 @@
+the jacubstal use
+
+
+statr jacub k in 3 use loop for incremete the k. Each turn of the loop use k and k-1 for clacole the rage the elementes 
+
+
+example if jacub(4) and jacub(3) =  3- 1 = 2 pass 2 number for list start in index 3 next 2 , incremete the k 
+ant restart the loop

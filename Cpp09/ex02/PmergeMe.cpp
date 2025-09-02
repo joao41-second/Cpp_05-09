@@ -6,7 +6,7 @@
 /*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 08:46:58 by jperpct           #+#    #+#             */
-/*   Updated: 2025/07/25 09:12:36 by jperpct          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:10:21 by jperpct          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@
 #include <algorithm>
 #include <bits/types/__sigset_t.h>
 #include <iostream>
-#include <iterator>
-#include <list>
 #include <ostream>
-#include <utility>
 #include <vector>
 
 int swap_ = 0 ;
@@ -36,6 +33,14 @@ void swap(int &v1, int &v2)
 	}
 }
 
+int PmergeMe::Jacobsthal_number(int n)
+{
+	if(n == 1)
+		return (1);
+	else if (n <= 0)
+		return (0);
+	return (Jacobsthal_number(n-1) + 2 *Jacobsthal_number(n-2));
+}
 
 std::vector<int> PmergeMe::binery_sryche(std::vector<int> list, int nb)
 {
@@ -69,8 +74,9 @@ std::vector<int> PmergeMe::binery_sryche(std::vector<int> list, int nb)
 
 void PmergeMe::organize()
 {
-	
-	organize(_end);
+
+	_end = organize(_end);
+	std::cout << _end << std::endl;
 }
 
 std::vector<int> PmergeMe::organize(std::vector<int> list)
@@ -78,6 +84,7 @@ std::vector<int> PmergeMe::organize(std::vector<int> list)
 	int odd;
 	int odd_c = -1;
 	std::vector<int> large;
+	std::vector<int> large_copy;
 	std::vector<int> smale;	
 	if(list.size() % 2 != 0)
 	{
@@ -101,31 +108,30 @@ std::vector<int> PmergeMe::organize(std::vector<int> list)
 	if(odd_c == 1)
 		smale = binery_sryche(smale, odd);
 
-	for (int i = 0 ; (int)large.size() > i; i++)
-	{
-		smale = binery_sryche(smale, large[i]);
-	}
-	
-	std::cout << "large :"<< large << std::endl;
-	std::cout << "smale :"<< smale << std::endl;
 
+	int k =1; 
+	
+	large_copy = large;
+	while(!large.empty())
+	{
+		if(Jacobsthal_number(k) > (int)large.size())
+			break;
+		for(int i = 0; Jacobsthal_number(k-1)+1 <= Jacobsthal_number(k)-i;i++)
+		{
+			std::vector<int>::iterator it = std::find(large.begin(),large.end(), large_copy[Jacobsthal_number(k)-i-1]);
+			if(it != large.end())
+			{
+				smale = binery_sryche(smale, *it);
+			}
+		}
+		k++;
+	}
 
 	return(smale);	
 }
 
 PmergeMe::PmergeMe(char **argc,int argv)
 {
-	int n = 10; // quantidade de termos
-
-    // primeiros dois termos
-    _fib.push_back(0);
-    _fib.push_back(1); 
-
-    // gera os próximos
-    for (int i = 2; i < n; ++i) {
-        _fib.push_back(  _fib[i-1] + _fib[i-2]);
-    }
-
 
 	long int temp;
 	std::vector<int>::iterator t;
@@ -152,7 +158,6 @@ PmergeMe::~PmergeMe()
 {
 	std::cout << "end PmergeMe" << std::endl;
 }
-
 
 PmergeMe::PmergeMe(PmergeMe  const &copy)
 {
