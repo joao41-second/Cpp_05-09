@@ -6,7 +6,7 @@
 /*   By: jperpct <jperpect@student.42porto.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 08:46:58 by jperpct           #+#    #+#             */
-/*   Updated: 2025/09/02 11:10:21 by jperpct          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:34:39 by jperpct          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,15 @@ std::vector<int> PmergeMe::binery_sryche(std::vector<int> list, int nb)
 
 void PmergeMe::organize()
 {
-
-	_end = organize(_end);
+	clock_t inicio = clock();
+	_end = organize_vector(_end);
+    clock_t fim = clock();
+ double tempoExecucao = double(fim - inicio) * 1000 / CLOCKS_PER_SEC;
+std::cout << "Tempo de execucao: " << tempoExecucao << " ms" << std::endl;
 	std::cout << _end << std::endl;
 }
 
-std::vector<int> PmergeMe::organize(std::vector<int> list)
+std::vector<int> PmergeMe::organize_vector(std::vector<int> list)
 {
 	int odd;
 	int odd_c = -1;
@@ -104,11 +107,9 @@ std::vector<int> PmergeMe::organize(std::vector<int> list)
 		large.push_back(list[i+1]);
 	}	
 	if(smale.size() > 1)
-		smale = organize(smale);
+		smale = organize_vector(smale);
 	if(odd_c == 1)
 		smale = binery_sryche(smale, odd);
-
-
 	int k =1; 
 	
 	large_copy = large;
@@ -118,7 +119,9 @@ std::vector<int> PmergeMe::organize(std::vector<int> list)
 			break;
 		for(int i = 0; Jacobsthal_number(k-1)+1 <= Jacobsthal_number(k)-i;i++)
 		{
-			std::vector<int>::iterator it = std::find(large.begin(),large.end(), large_copy[Jacobsthal_number(k)-i-1]);
+			std::vector<int>::iterator it = std::find(
+					large.begin(),large.end(),
+					large_copy[Jacobsthal_number(k)-i-1]);
 			if(it != large.end())
 			{
 				smale = binery_sryche(smale, *it);
@@ -126,7 +129,6 @@ std::vector<int> PmergeMe::organize(std::vector<int> list)
 		}
 		k++;
 	}
-
 	return(smale);	
 }
 
