@@ -44,82 +44,29 @@ int PmergeMe::Jacobsthal_number(int n)
 	return (Jacobsthal_number(n-1) + 2 *Jacobsthal_number(n-2));
 }
 
-std::vector<int> PmergeMe::binery_sryche(std::vector<int> list, int nb)
-{
-	std::vector<int> l1;
-	std::vector<int> l2;
-	int temp;
-	if(list.size() == 1 )
-	{
-		if(nb > list[0])
-			list.push_back(nb);
-		else
-		{
-			temp = list[0]; 
-			list.clear();
-			list.push_back(nb);
-			list.push_back(temp);
-		}	
-		return (list);
-	}
-	l2.assign(list.begin()+list.size() /2,list.end());	
-	l1.assign(list.begin(), list.begin()+list.size() /2);
-
-		if(list[list.size() / 2] > nb )
-			l1 = binery_sryche(l1, nb);
-		else
-			l2 = binery_sryche(l2, nb);	
-	list.assign(l1.begin(),l1.end());
-	list.insert(list.end(),l2.begin(),l2.end());
-	return list;
-}
-
-std::deque<int> PmergeMe::binery_sryche_deque(std::deque<int> list, int nb)
-{
-	std::deque<int> l1;
-	std::deque<int> l2;
-	int temp;
-	if(list.size() == 1 )
-	{
-		if(nb > list[0])
-			list.push_back(nb);
-		else
-		{
-			temp = list[0]; 
-			list.clear();
-			list.push_back(nb);
-			list.push_back(temp);
-		}	
-		return (list);
-	}
-	l2.assign(list.begin()+list.size() /2,list.end());	
-	l1.assign(list.begin(), list.begin()+list.size() /2);
-
-		if(list[list.size() / 2] > nb )
-			l1 = binery_sryche_deque(l1, nb);
-		else
-			l2 = binery_sryche_deque(l2, nb);	
-	list.assign(l1.begin(),l1.end());
-	list.insert(list.end(),l2.begin(),l2.end());
-	return list;
-}
 
 void PmergeMe::organize()
 {
-	clock_t inicio = clock();
+	clock_t start = clock();
 	_end = organize_vector(_start);
-    	clock_t fim = clock();
+    	clock_t end = clock();
+
+	std::deque<int> deq;
+
+	deq.assign(_start.begin(),_start.end());
 	std::cout <<"Before: ";
 	print_list_limit(15, _end);
 	std::cout << "After: ";
 	print_list_limit(15, _end);
- 	double tempoExecucao = double(fim - inicio) * 1000 / CLOCKS_PER_SEC;
-	std::cout << "Time to process range of " << _start.size() <<" element with std::vctor :" << tempoExecucao << " ms" << std::endl;
-	inicio = clock();
-	_end = organize_vector(_start);
- 	fim = clock();
- 	tempoExecucao = double(fim - inicio) * 1000 / CLOCKS_PER_SEC;
-	std::cout << "Time to process range of " << _end.size() <<" element with std::vctor :" << tempoExecucao << " ms" << std::endl;
+ 	double tempoExecucao = double(end - start) * 1000 / CLOCKS_PER_SEC;
+	std::cout << "Time to process range of " << _start.size() <<" element with std::vector: " << tempoExecucao << " ms" << std::endl;
+
+	start = 0;
+	start = clock();
+	std::deque<int> org_deq = organize_deque(deq);
+ 	end = clock();
+ 	tempoExecucao = double(end - start) * 1000 / CLOCKS_PER_SEC;
+	std::cout << "Time to process range of " << org_deq.size() <<" element with std::deque: " << tempoExecucao << " ms" << std::endl;
 
 }
 
@@ -204,8 +151,6 @@ std::deque<int> PmergeMe::organize_deque(std::deque<int> list)
 	large_copy = large;
 	while(!large.empty())
 	{
-		if(Jacobsthal_number(k) > (int)large.size())
-			break;
 		for(int i = 0; Jacobsthal_number(k-1)+1 <= Jacobsthal_number(k)-i;i++)
 		{
 			std::deque<int>::iterator it = std::find(
@@ -213,13 +158,14 @@ std::deque<int> PmergeMe::organize_deque(std::deque<int> list)
 					large_copy[Jacobsthal_number(k)-i-1]);
 			if(it != large.end())
 			{
-				smale = binery_sryche_deque(smale, *it);
+				smale = binery_sryche(smale, *it);
+				it = large.erase(it);
 			}
 		}
 		k++;
 	}
 	if(odd_c == 1)
-		smale = binery_sryche_deque(smale, odd);
+		smale = binery_sryche(smale, odd);
 	return(smale);	
 }
 
@@ -275,8 +221,6 @@ const char *PmergeMe::Nb_error::what() const throw()
 {
 	return "the number list not valid";
 }
-
-
 
 
 std::ostream& operator<<(std::ostream& os, const std::vector<int> & list)

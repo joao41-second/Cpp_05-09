@@ -33,8 +33,6 @@ class PmergeMe
 		//double time;
 		std::vector<int> organize_vector(std::vector<int> list);
 		std::deque<int> organize_deque(std::deque<int> list);
-		std::vector<int> binery_sryche(std::vector<int> list, int nb);
-		std::deque<int> binery_sryche_deque(std::deque<int> list, int nb);
 		int Jacobsthal_number(int);
 		
 	public:
@@ -67,4 +65,34 @@ void print_list_limit(int size, cont& c)
 	std::cout << std::endl;
 }
 
+template <typename cont>
+cont binery_sryche(cont list, int nb)
+{
+	cont  l1;
+	cont l2;
+	int temp;
+	if(list.size() == 1 )
+	{
+		if(nb > list[0])
+			list.push_back(nb);
+		else
+		{
+			temp = list[0]; 
+			list.clear();
+			list.push_back(nb);
+			list.push_back(temp);
+		}	
+		return (list);
+	}
+	l2.assign(list.begin()+list.size() /2,list.end());	
+	l1.assign(list.begin(), list.begin()+list.size() /2);
+
+		if(list[list.size() / 2] > nb )
+			l1 = binery_sryche(l1, nb);
+		else
+			l2 = binery_sryche(l2, nb);	
+	list.assign(l1.begin(),l1.end());
+	list.insert(list.end(),l2.begin(),l2.end());
+	return list;
+}
 #endif
