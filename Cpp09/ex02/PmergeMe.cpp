@@ -48,8 +48,8 @@ int PmergeMe::Jacobsthal_number(int n)
 void PmergeMe::organize()
 {
 	clock_t start = clock();
-	_end = organize_vector(_start);
-    	clock_t end = clock();
+	organize_vector(_start);
+  	clock_t end = clock();
 
 	std::deque<int> deq;
 
@@ -59,20 +59,20 @@ void PmergeMe::organize()
 	std::cout << "After: ";
 	print_list_limit(15, _end);
  	double tempoExecucao = double(end - start) * 1000 / CLOCKS_PER_SEC;
-	std::cout << "Time to process range of " << _start.size() <<" element with std::vector: " << tempoExecucao << " ms" << std::endl;
+	std::cout << "Time to process range of " << _start.size() <<" element with std::vector: " << tempoExecucao << " us" << std::endl;
 
 	start = 0;
 	start = clock();
 	std::deque<int> org_deq = organize_deque(deq);
  	end = clock();
  	tempoExecucao = double(end - start) * 1000 / CLOCKS_PER_SEC;
-	std::cout << "Time to process range of " << org_deq.size() <<" element with std::deque: " << tempoExecucao << " ms" << std::endl;
+	std::cout << "Time to process range of " << org_deq.size() <<" element with std::deque: " << tempoExecucao << " us" << std::endl;
 
 }
 
 std::vector<int> PmergeMe::organize_vector(std::vector<int> list)
 {
-	int odd;
+	int odd = 0;
 	int odd_c = -1;
 	std::vector<int> large;
 	std::vector<int> large_copy;
@@ -103,6 +103,8 @@ std::vector<int> PmergeMe::organize_vector(std::vector<int> list)
 	{		
 		for(int i = 0; Jacobsthal_number(k-1)+1 <= Jacobsthal_number(k)-i;i++)
 		{
+			if(Jacobsthal_number(k)-i-1 >= (int)large_copy.size())
+				continue;
 			std::vector<int>::iterator it = std::find(
 					large.begin(),large.end(),
 					large_copy[Jacobsthal_number(k)-i-1]);
@@ -153,6 +155,9 @@ std::deque<int> PmergeMe::organize_deque(std::deque<int> list)
 	{
 		for(int i = 0; Jacobsthal_number(k-1)+1 <= Jacobsthal_number(k)-i;i++)
 		{
+
+			if(Jacobsthal_number(k)-i-1 >= (int)large_copy.size())
+				continue;
 			std::deque<int>::iterator it = std::find(
 					large.begin(),large.end(),
 					large_copy[Jacobsthal_number(k)-i-1]);
