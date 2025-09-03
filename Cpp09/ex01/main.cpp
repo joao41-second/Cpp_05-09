@@ -25,8 +25,8 @@ int main(int argc, char **argv)
 		std::string input(argv[1]);
 		try
 		{
-		RPN ok (input);
-		ok.exec();
+			RPN ok (input);
+			ok.exec();
 		}
 		catch(std::exception &e)
 		{

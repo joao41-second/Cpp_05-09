@@ -20,13 +20,14 @@
 
 void RPN::exec()
 {
-	int i1,i2;
+	int i1 =0 ,i2 =0 ;
 	for(int i = 0;i < (int)_save.size();i++)
 	{	
-		if(std::isdigit(_save[i]) == true )	
+		if(_save[i] -'0' >= 0 && _save[i] -'0' <= 9)	
 		{
 			_stack.push((_save[i] -'0'));
 		}
+
 		if(_stack.size() >= 2)
 		{
 		switch (_save[i])
@@ -37,7 +38,7 @@ void RPN::exec()
 				i1 = _stack.top();
 				_stack.pop();
 				_stack.push(i1 + i2);
-				std::cout << i1 << " + " << i2 << std::endl;
+				//std::cout << i1 << " + " << i2 << std::endl;
 				break;
 			case '-':
 				i2 = _stack.top();
@@ -46,7 +47,7 @@ void RPN::exec()
 				_stack.pop();
 				_stack.push(i1 - i2);
 
-				std::cout << i1 << " - " << i2 << std::endl;
+				//std::cout << i1 << " - " << i2 << std::endl;
 				break;
 			case '/':
 				i2 = _stack.top();
@@ -55,7 +56,7 @@ void RPN::exec()
 				_stack.pop();
 				_stack.push(i1 / i2);
 				
-				std::cout << i1 << " / " << i2 << std::endl;
+				//std::cout << i1 << " / " << i2 << std::endl;
 				break;
 			case '*':
 				i2 = _stack.top();
@@ -64,7 +65,7 @@ void RPN::exec()
 				_stack.pop();
 				_stack.push(i1 * i2);
 
-				std::cout << i1 << " * " << i2 << std::endl;
+				//std::cout << i1 << " * " << i2 << std::endl;
 				break;
 			default:
 				(void) i1;
