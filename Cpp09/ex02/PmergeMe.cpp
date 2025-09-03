@@ -19,6 +19,7 @@
 #include <iostream>
 #include <ostream>
 #include <vector>
+#include <iomanip>
 
 int swap_ = 0 ;
 
@@ -106,16 +107,20 @@ std::deque<int> PmergeMe::binery_sryche_deque(std::deque<int> list, int nb)
 void PmergeMe::organize()
 {
 	clock_t inicio = clock();
-	_end = organize_vector(_end);
+	_end = organize_vector(_start);
     	clock_t fim = clock();
+	std::cout <<"Before: ";
+	print_list_limit(15, _end);
+	std::cout << "After: ";
+	print_list_limit(15, _end);
  	double tempoExecucao = double(fim - inicio) * 1000 / CLOCKS_PER_SEC;
-	std::cout << "Tempo de execucao: " << tempoExecucao << " ms" << std::endl;
+	std::cout << "Time to process range of " << _start.size() <<" element with std::vctor :" << tempoExecucao << " ms" << std::endl;
 	inicio = clock();
-	_end = organize_vector(_end);
+	_end = organize_vector(_start);
  	fim = clock();
  	tempoExecucao = double(fim - inicio) * 1000 / CLOCKS_PER_SEC;
-	std::cout << "Tempo de execucao: " << tempoExecucao << " ms" << std::endl;
-	std::cout << _end << std::endl;
+	std::cout << "Time to process range of " << _end.size() <<" element with std::vctor :" << tempoExecucao << " ms" << std::endl;
+
 }
 
 std::vector<int> PmergeMe::organize_vector(std::vector<int> list)
@@ -144,15 +149,11 @@ std::vector<int> PmergeMe::organize_vector(std::vector<int> list)
 	}	
 	if(smale.size() > 1)
 		smale = organize_vector(smale);
-	if(odd_c == 1)
-		smale = binery_sryche(smale, odd);
 	int k =1; 
 	
 	large_copy = large;
 	while(!large.empty())
-	{
-		if(Jacobsthal_number(k) > (int)large.size())
-			break;
+	{		
 		for(int i = 0; Jacobsthal_number(k-1)+1 <= Jacobsthal_number(k)-i;i++)
 		{
 			std::vector<int>::iterator it = std::find(
@@ -161,10 +162,14 @@ std::vector<int> PmergeMe::organize_vector(std::vector<int> list)
 			if(it != large.end())
 			{
 				smale = binery_sryche(smale, *it);
+				it = large.erase(it);
 			}
 		}
+		
 		k++;
 	}
+	if(odd_c == 1)
+		smale = binery_sryche(smale, odd);
 	return(smale);	
 }
 
@@ -271,15 +276,17 @@ const char *PmergeMe::Nb_error::what() const throw()
 	return "the number list not valid";
 }
 
+
+
+
 std::ostream& operator<<(std::ostream& os, const std::vector<int> & list)
 {
 	for (int i = 0;i < (int)list.size(); i++)
 	{	
 		if(i != 0)
-			os <<',' <<    list[i];
+			os <<' ' <<    list[i];
 		else
 			os <<    list[i];
 	}
-	os << '.';
 	return  os;
 }

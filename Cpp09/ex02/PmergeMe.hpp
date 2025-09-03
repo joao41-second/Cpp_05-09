@@ -16,6 +16,7 @@
 
 #include <deque>
 #include <exception>
+#include <ostream>
 #include <vector>
 #include <iostream>
 #include <cstdlib>
@@ -52,5 +53,18 @@ class PmergeMe
 
 std::ostream& operator<<(std::ostream& os, const std::vector<int> & list);
 
+template <typename cont>
+void print_list_limit(int size, cont& c)
+{
+	
+	for (int i = 0;i < (int)c.size() && i < size; i++)
+	{	
+		if(i != 0)
+			std::cout <<' ' <<    c[i];
+		else
+			std::cout <<   c[i];
+	}
+	std::cout << std::endl;
+}
 
 #endif
