@@ -14,6 +14,8 @@
 #ifndef PMERGEME_HPP
 #define  PMERGEME_HPP
 
+#define NB 15
+
 #include <deque>
 #include <exception>
 #include <ostream>

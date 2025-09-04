@@ -48,16 +48,16 @@ int PmergeMe::Jacobsthal_number(int n)
 void PmergeMe::organize()
 {
 	clock_t start = clock();
-	organize_vector(_start);
+	_end = organize_vector(_start);
   	clock_t end = clock();
 
 	std::deque<int> deq;
 
 	deq.assign(_start.begin(),_start.end());
 	std::cout <<"Before: ";
-	print_list_limit(15, _end);
+	print_list_limit(NB, _start);
 	std::cout << "After: ";
-	print_list_limit(15, _end);
+	print_list_limit(NB, _end);
  	double tempoExecucao = double(end - start) * 1000 / CLOCKS_PER_SEC;
 	std::cout << "Time to process range of " << _start.size() <<" element with std::vector: " << tempoExecucao << " us" << std::endl;
 
