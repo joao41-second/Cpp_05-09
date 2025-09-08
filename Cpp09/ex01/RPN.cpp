@@ -20,7 +20,7 @@
 
 void RPN::exec()
 {
-	int i1 =0 ,i2 =0 ;
+	float i1 =0 ,i2 =0 ;
 	for(int i = 0;i < (int)_save.size();i++)
 	{	
 		if(_save[i] -'0' >= 0 && _save[i] -'0' <= 9)	
@@ -54,9 +54,15 @@ void RPN::exec()
 				_stack.pop();
 				i1 = _stack.top();
 				_stack.pop();
-				_stack.push(i1 / i2);
-				
+
 				//std::cout << i1 << " / " << i2 << std::endl;
+				if(i2 == 0)
+				{
+				  throw	error_infit();
+				}else {		
+					_stack.push(i1 / i2);
+				}
+				
 				break;
 			case '*':
 				i2 = _stack.top();
@@ -108,6 +114,11 @@ RPN::~RPN()
 const char * RPN::error_input::what() const throw()
 {
 	return ("error in input");
+}
+
+const char * RPN::error_infit::what() const throw()
+{
+	return ("x / 0 is infinty");
 }
 
 RPN &RPN::operator=(const RPN & copy)

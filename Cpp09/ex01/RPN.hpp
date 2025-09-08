@@ -26,7 +26,7 @@
 class RPN
 {
 	private:
-		std::stack<int> _stack;
+		std::stack<float> _stack;
 		std::string 	_save;
 	public:
 		RPN(std::string input);
@@ -36,6 +36,10 @@ class RPN
 		void exec();
 	
 		class error_input : public std::exception
+		{
+			virtual const char * what() const throw();
+		};
+		class error_infit : public std::exception
 		{
 			virtual const char * what() const throw();
 		};

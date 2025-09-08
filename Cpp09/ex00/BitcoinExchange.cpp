@@ -12,6 +12,8 @@
 
 #include "BitcoinExchange.hpp"
 #include "colors.hpp"
+#include <iostream>
+#include <ostream>
 #include <string>
 
 bool BitcoinExchange::chek_data(std::string line)
@@ -35,6 +37,7 @@ bool BitcoinExchange::chek_data(std::string line)
 
 void BitcoinExchange::add_db(std::string line)
 {
+	static int max_year = 0;
 	if(line[10] != ',' || line[4] != '-' || line[7] != '-'  )
 		throw Error_db();
 	for(int i = 11;i < (int )line.size();i++)
@@ -48,9 +51,16 @@ void BitcoinExchange::add_db(std::string line)
 	{
 			throw Error_db();
 	};
+	if(max_year == 0)
+		max_year =  (int)std::atof(line.substr(0,4).c_str());
+	if(max_year >  (int)std::atof(line.substr(0,4).c_str()))
+			throw Error_db();
+	else
+		max_year =  (int)std::atof(line.substr(0,4).c_str());
+
 	if( std::atof(line.substr(11,20).c_str()) < 0 || std::atof(line.substr(11,20).c_str()) > (double)INT_MAX)
 			throw Error_db();
-	_db[line.substr(0,10).c_str()] = ((float)std::atof(line.substr(11,20).c_str()));	
+ 	_db[line.substr(0,10).c_str()] = ((float)std::atof(line.substr(11,20).c_str()));	
 }
 
 void BitcoinExchange::Exchange(std::string line)
@@ -142,7 +152,7 @@ BitcoinExchange::BitcoinExchange(std::string db)
 		throw Error_db();
 	std::ifstream db_fd(db.c_str());
 	std::string line;
-	if(!db_fd )
+	if(!db_fd)
 		throw Error_db();
 	std::getline(db_fd,line);
 	while (std::getline(db_fd,line))
